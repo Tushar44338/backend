@@ -27,10 +27,10 @@ import bcrypt from 'bcrypt'
         },
         avatar:{
             type: String,
-            required: true, //cloudnary url
+            required: true, //cloudinary url
         },
         coverImage:{
-            type: String, // cloudnary url
+            type: String, // cloudinary url
         }, 
         watchHistory: [
             {
