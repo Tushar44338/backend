@@ -10,9 +10,10 @@ const registerUser = asyncHandler( async (req, res) => {
     // })
 
     const { fullName, email, password, username } = req.body
-    console.log("email: ", email);
-    console.log("password: ", password);
-    console.log("username: ", username);
+    // console.log("req.body: ", req.body);
+    // console.log("email: ", email);
+    // console.log("password: ", password);
+    // console.log("username: ", username);
     
     if( [fullName, email, username, password].some((field) => field?.trim() === "") ){
         throw new ApiError(400, "All fields are required")
@@ -27,9 +28,22 @@ const registerUser = asyncHandler( async (req, res) => {
     }
     
     const avatarLocalPath = req.files?.avatar[0]?.path  // req.files options provide by the middleware which is located at user.routes.js
-    const coverImageLocalPath = req.files?.coverImage[0]?.path
+    // const coverImageLocalPath = req.files?.coverImage[0]?.path
+
+
+    //this method handle the coverImage if not uploded by user
+    let coverImageLocalPath;
+    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length>0){
+        coverImageLocalPath = req.files.coverImage[0].path
+    }
+
+
     // console.log(avatarLocalPath);
+    // console.log(coverImageLocalPath);
+    // console.log(req.files);
     
+
+
     if(!avatarLocalPath){
         throw new ApiError(400, 'Avatar file is required.')
     }
